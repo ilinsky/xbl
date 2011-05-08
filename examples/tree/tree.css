@@ -1,0 +1,77 @@
+/**** Grauw’s Tree list ****
+ *
+ * 2006-2008, Laurens Holst
+ * http://www.grauw.nl/
+ *
+ * HTML structure:
+ *
+ * <ul class="tree">
+ *    <li>Item
+ *       <ul>
+ *          <li><a href="">Subitem 1</a></li>
+ *          <li><a href="">Subitem 2</a></li>
+ *          <li><a href="">Subitem 3</a></li>
+ *       <ul>
+ *    </li>
+ * </ul>
+ *
+ * After Fuji.Tree.initTree() is applied:
+ *
+ * <ul class="tree">
+ *    <li class="last-child (closed)">Item
+ *       <ul>
+ *          <li><a href="">Subitem 1</a></li>
+ *          <li><a href="">Subitem 2</a></li>
+ *          <li class="last-child"><a href="">Subitem 3</a></li>
+ *       </ul>
+ *    </li>
+ * </ul>
+ *
+ */
+ul.tree,
+ul.tree ul {
+	padding: 0;
+	margin: 0;
+}
+ul.tree li {
+	display: block;
+	list-style-type: none;
+	padding-left: 16px;
+	binding: url("tree.xml#tree-item");
+}
+ul.tree li ul {
+	margin-left: -16px;
+	padding-left: 16px;
+}
+* html ul.tree,
+* html ul.tree li,
+* html ul.tree li ul {
+	/* register clicks on li padding in IE */
+	position: relative;
+}
+* html ul.tree li {
+	/* collapse trees properly in IE */
+	zoom: 1.0;
+}
+ul.tree li {
+	background: url('media/tn.gif') 0 0 no-repeat;
+}
+ul.tree li.branch {
+	background: url('media/tm.gif') 0 0 no-repeat;
+}
+ul.tree li.closed {
+	background: url('media/tp.gif') 0 0 no-repeat;
+}
+ul.tree li:last-child,
+ul.tree li.last-child {
+	background-position: 0 -800px;
+}
+ul.tree li a {
+	display: block;
+}
+ul.tree li.closed ul {
+	display: none;
+}
+
+
+

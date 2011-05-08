@@ -1,0 +1,152 @@
+<?xml version="1.0"?>
+<xbl:xbl
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:xbl="http://www.w3.org/ns/xbl">
+
+	<!-- Tabbox -->
+	<xbl:binding id="tabbox">
+		<xbl:implementation><![CDATA[
+			({
+/* Number */	"selectedIndex":	-1,
+/* Array */		"tabs":		null,
+/* Array */		"panels":	null,
+/* :public */	"goTo":		function(/*Number*/ nIndex) {
+					if (nIndex != this.selectedIndex) {
+						var oElement;
+
+						// Hide old item
+						this.tabs[this.selectedIndex]._setState(2);
+						oElement	= this.tabs[this.selectedIndex].boundElement;
+						oElement.className	= oElement.className.replace(/(^| )selected( |$)/, ' ');
+						oElement	= this.panels[this.selectedIndex].boundElement;
+						oElement.className	= oElement.className.replace(/(^| )selected( |$)/, ' ');
+
+						this.selectedIndex	= nIndex;
+
+						// Show new item
+						this.tabs[this.selectedIndex]._setState(0);
+						oElement	= this.tabs[this.selectedIndex].boundElement;
+						oElement.className	= oElement.className + ' selected';
+						oElement	= this.panels[this.selectedIndex].boundElement;
+						oElement.className	= oElement.className + ' selected';
+					}
+				},
+/* :private */	"_getIndexByTab":	function(/* Element */ oTab) {
+					for (var nIndex = 0; nIndex < this.tabs.length; nIndex++)
+						if (this.tabs[nIndex] == oTab)
+							return nIndex;
+					return -1;
+				},
+/* :system */	"xblBindingAttached":	function() {
+					this.tabs	= this.boundElement.tabs	= [];
+					this.panels	= this.boundElement.panels	= [];
+				}
+			})
+		]]></xbl:implementation>
+	</xbl:binding>
+
+	<!-- Tab -->
+	<xbl:binding id="tab">
+		<xbl:resources xml:base="media/">
+			<xbl:prefetch src="tab.gif" />
+			<xbl:style><![CDATA[
+				.right {
+					background: url(tab.gif) no-repeat right -400px;
+					padding: 0 1em;
+				}
+				.content {
+					background: url(tab.gif) repeat-x 0 -350px;
+					cursor: pointer;
+					padding: 0.5em;
+				}
+				.left {
+					background: url(tab.gif) no-repeat 0 -300px;
+				}
+			]]></xbl:style>
+		</xbl:resources>
+		<xbl:handlers>
+			<xbl:handler event="click" button="0">
+				if (this.tabbox.tabs[this.tabbox.selectedItem] != this)
+					this.tabbox.goTo(this.tabbox._getIndexByTab(this));
+			</xbl:handler>
+			<xbl:handler event="mouseover">
+				if (this.tabbox.tabs[this.tabbox.selectedIndex] != this)
+					this._setState(1);
+			</xbl:handler>
+			<xbl:handler event="mouseout">
+				if (this.tabbox.tabs[this.tabbox.selectedIndex] != this)
+					this._setState(2);
+			</xbl:handler>
+		</xbl:handlers>
+		<xbl:implementation><![CDATA[
+			({
+/* Element */	"tabbox":	null,
+/* :private */	"_setState":	function(/* Number */ nState) {
+					this.shadowTree.getElementById("right").style.backgroundPosition	= "right -" + (nState * 150 + 100) + "px";
+					this.shadowTree.getElementById("content").style.backgroundPosition	= "0 -" + (nState * 150 + 50) + "px";
+					this.shadowTree.getElementById("left").style.backgroundPosition		= "0 -" + (nState * 150) + "px";
+				},
+/* :system */	"xblBindingAttached":	function() {
+					// Register tab with its tabbox
+					for (var oElement = this.boundElement.parentNode; oElement.nodeType == 1; oElement = oElement.parentNode)
+						if (ElementXBL.prototype.hasBinding.call(oElement, "tabbox.xml#tabbox")) {
+							oElement.tabs.push(this);
+							this.tabbox	= oElement;
+							break;
+						}
+
+					// Set tabbox selectedIndex to this tab if it is selected
+					if (this.boundElement.className.match(/(^| )selected( |$)/)) {
+						this.tabbox.selectedIndex	= this.tabbox.tabs.length - 1;
+						this._setState(0);
+					}
+					else {
+						this._setState(2);
+					}
+				}
+			})
+		]]></xbl:implementation>
+		<xbl:template>
+			<div id="left" class="left">
+				<div id="right" class="right">
+					<div id="content" class="content" xbl:attr="title=xbl:text">
+						<xbl:content />
+					</div>
+				</div>
+			</div>
+		</xbl:template>
+	</xbl:binding>
+
+	<!-- Panel -->
+	<xbl:binding id="tabpanel">
+		<xbl:resources xml:base="media/">
+			<xbl:prefetch src="tabpanel.gif" />
+			<xbl:style><![CDATA[
+				.content {
+					background: url(tabpanel.gif) no-repeat;
+					height: 100%;
+					padding: 0.5em;
+				}
+			]]></xbl:style>
+		</xbl:resources>
+		<xbl:implementation><![CDATA[
+			({
+/* Element */	"tabbox":	null,
+/* :system */	"xblBindingAttached":	function() {
+					// Register panel with its tabbox
+					for (var oElement = this.boundElement.parentNode; oElement.nodeType == 1; oElement = oElement.parentNode)
+						if (ElementXBL.prototype.hasBinding.call(oElement, "tabbox.xml#tabbox")) {
+							oElement.panels.push(this);
+							this.tabbox	= oElement;
+							break;
+						}
+				}
+			})
+		]]></xbl:implementation>
+		<xbl:template>
+			<div class="content">
+				<xbl:content />
+			</div>
+		</xbl:template>
+	</xbl:binding>
+</xbl:xbl>

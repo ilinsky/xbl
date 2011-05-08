@@ -1,0 +1,116 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+	<head>
+		<title>Events test</title>
+		<!-- Tests CSS -->
+		<link href="../../test.css" rel="stylesheet" type="text/css" />
+		<!-- XBL Implementation -->
+		<script src="../../../../xbl.js" type="text/javascript"></script>
+		<!-- Page Bindings -->
+		<style type="text/css">
+			/* UIEvent */
+			.DOMActivate {				binding: url(events.xml#DOMActivate);				}
+			.DOMFocusIn-DOMFocusOut {	binding: url(events.xml#DOMFocusIn-DOMFocusOut);	}
+			.focus-blur {				binding: url(events.xml#focus-blur);				}
+			/* MouseEvent */
+			.mouseover-mouseout {		binding: url(events.xml#mouseover-mouseout);		}
+			.mouseenter-mouseleave {	binding: url(events.xml#mouseenter-mouseleave); padding: 5px;	border: solid 1px blue;	}
+			.mousemove {				binding: url(events.xml#mousemove);					}
+			.mousedown-mouseup {		binding: url(events.xml#mousedown-mouseup);			}
+			.click {					binding: url(events.xml#click);						}
+			.dblclick {					binding: url(events.xml#dblclick);					}
+			.contextmenu {				binding: url(events.xml#contextmenu);				}
+			/* MouseWheelEvent */
+			.mousewheel {				binding: url(events.xml#mousewheel);				}
+			/* KeyboardEvent */
+			.keydown-keyup {			binding: url(events.xml#keydown-keyup);				}
+			.keypress {					binding: url(events.xml#keypress);					}
+			/* TextEvent */
+			.textInput {				binding: url(events.xml#textInput);					}
+			/* Event */
+			.submit-reset {				binding: url(events.xml#submit-reset);				}
+			.change {					binding: url(events.xml#change);					}
+		</style>
+	</head>
+	<body>
+		<h1>Events Tests</h1>
+		<p class="abstract">
+			These tests demonstrate events support.
+		</p>
+
+		<h2>UIEvent</h2>
+
+		<h3>DOMActivate</h3>
+		<button class="DOMActivate">DOMActivate</button>
+		<a href="#" class="DOMActivate">DOMActivate</a>
+
+		<h3>DOMFocusIn / DOMFocusOut</h3>
+		<input class="DOMFocusIn-DOMFocusOut" />
+		<input class="DOMFocusIn-DOMFocusOut" />
+
+		<h3>focus / blur</h3>
+		<input class="focus-blur" type="text"/>
+		<input class="focus-blur" />
+
+		<h2>MouseEvent</h2>
+
+		<h3>mouseover-mouseout</h3>
+		<div class="mouseover-mouseout">hover here</div>
+
+		<h3>mouseenter-mouseleave</h3>
+		<div class="mouseenter-mouseleave" id="1">
+			<div class="mouseenter-mouseleave" id="2">
+				<div class="mouseenter-mouseleave" id="2.1">
+					hover here
+				</div>
+				<div class="mouseenter-mouseleave" id="2.2">
+					hover here
+				</div>
+			</div>
+		</div>
+
+		<h3>mousemove</h3>
+		<div class="mousemove">hover here</div>
+
+		<h3>mousedown-mouseup</h3>
+		<div class="mousedown-mouseup">click here</div>
+
+		<h3>click</h3>
+		<div class="click">click here</div>
+
+		<h3>dblclick</h3>
+		<div class="dblclick">dblclick here</div>
+
+		<h2>MouseWheelEvent</h2>
+
+		<h3>mousewheel</h3>
+		<div class="mousewheel">wheel here</div>
+
+		<h2>KeyboardEvent</h2>
+
+		<h3>keydown-keyup</h3>
+		<input type="text" class="keydown-keyup" />
+
+		<h2>TextEvent</h2>
+
+		<h3>textInput</h3>
+		<input type="text" class="textInput"/>
+
+		<h2>Event</h2>
+
+		<h3>reset-submit</h3>
+		<form class="submit-reset">
+			<input type="text"/>
+			<input type="submit"/>
+			<input type="reset"/>
+		</form>
+
+		<h3>change</h3>
+		<form>
+			<input type="text" class="change"/>
+		</form>
+
+		<br />
+
+	</body>
+</html>

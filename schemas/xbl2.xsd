@@ -1,0 +1,232 @@
+<?xml version="1.0"?>
+<xsd:schema
+	targetNamespace="http://www.w3.org/ns/xbl"
+	elementFormDefault="qualified"
+	xmlns:xbl="http://www.w3.org/ns/xbl"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+
+	<!--
+		This is a non-normative schema for XBL2
+
+		XBL2 Namespace: http://www.w3.org/ns/xbl
+		XBL2 Specification: http://www.w3.org/TR/xbl
+	 -->
+
+	<!--
+		Simple types
+	 -->
+	<xsd:simpleType name="selector.type">
+		<xsd:restriction base="xsd:string" />
+	</xsd:simpleType>
+
+	<xsd:simpleType name="mime.type">
+		<xsd:restriction base="xsd:string">
+			<xsd:pattern value="[^/]+/[^/]+" />
+		</xsd:restriction>
+	</xsd:simpleType>
+
+	<xsd:simpleType name="attr.type">
+		<xsd:restriction base="xsd:string" />
+	</xsd:simpleType>
+
+	<xsd:simpleType name="pseudo.type">
+		<xsd:restriction base="xsd:string" />
+	</xsd:simpleType>
+
+	<!--
+		Complex types
+	 -->
+	<xsd:complexType name="xbl.type">
+		<xsd:choice minOccurs="0" maxOccurs="unbounded">
+			<xsd:element name="binding" type="xbl:binding.type" />
+			<xsd:element name="script" type="xbl:script.type" />
+			<xsd:any namespace="##other" processContents="lax" />
+		</xsd:choice>
+		<xsd:attribute name="id" type="xsd:ID" />
+		<xsd:attribute name="script-type" type="xbl:mime.type" />
+		<xsd:attribute name="style-type" type="xbl:mime.type" />
+		<xsd:anyAttribute namespace="##other" processContents="lax" />
+	</xsd:complexType>
+
+	<xsd:complexType name="binding.type">
+		<xsd:choice minOccurs="0" maxOccurs="unbounded">
+			<xsd:element name="implementation" type="xbl:implementation.type" />
+			<xsd:element name="template" type="xbl:template.type" />
+			<xsd:element name="handlers" type="xbl:handlers.type" />
+			<xsd:element name="resources" type="xbl:resources.type" />
+			<xsd:any namespace="##other" processContents="lax" />
+		</xsd:choice>
+		<xsd:attribute name="id" type="xsd:ID" />
+		<xsd:attribute name="extends" type="xsd:anyURI" />
+		<xsd:attribute name="element" type="xbl:selector.type" />
+		<xsd:anyAttribute namespace="##other" processContents="lax" />
+	</xsd:complexType>
+
+	<!--
+
+	 -->
+	<xsd:complexType name="handlers.type">
+		<xsd:choice minOccurs="0" maxOccurs="unbounded">
+			<xsd:element name="handler" type="xbl:handler.type" />
+			<xsd:any namespace="##other" processContents="lax" />
+		</xsd:choice>
+		<xsd:attribute name="id" type="xsd:ID" />
+		<xsd:anyAttribute namespace="##other" processContents="lax" />
+	</xsd:complexType>
+
+	<xsd:complexType name="handler.type" mixed="true">
+		<xsd:attribute name="id" type="xsd:ID" />
+		<xsd:attribute name="event" use="required" />
+		<xsd:attribute name="phase" default="bubble">
+			<xsd:simpleType>
+				<xsd:restriction base="xsd:string">
+					<xsd:enumeration value="capture" />
+					<xsd:enumeration value="target" />
+					<xsd:enumeration value="bubble" />
+					<xsd:enumeration value="default-action" />
+				</xsd:restriction>
+			</xsd:simpleType>
+		</xsd:attribute>
+		<xsd:attribute name="trusted" type="xsd:boolean" default="false" />
+		<xsd:attribute name="propagate" default="continue">
+			<xsd:simpleType>
+				<xsd:restriction base="xsd:string">
+					<xsd:enumeration value="continue" />
+					<xsd:enumeration value="stop" />
+				</xsd:restriction>
+			</xsd:simpleType>
+		</xsd:attribute>
+		<xsd:attribute name="default-action" default="perform">
+			<xsd:simpleType>
+				<xsd:restriction base="xsd:string">
+					<xsd:enumeration value="perform" />
+					<xsd:enumeration value="cancel" />
+				</xsd:restriction>
+			</xsd:simpleType>
+		</xsd:attribute>
+		<xsd:attribute name="button" type="xsd:string" />
+		<xsd:attribute name="click-count" type="xsd:integer" />
+		<xsd:attribute name="modifiers" type="xsd:string" />
+		<xsd:attribute name="key" type="xsd:string" />
+		<xsd:attribute name="key-location" type="xsd:string" />
+		<xsd:attribute name="text" type="xsd:string" />
+		<xsd:attribute name="prev-value" type="xsd:string" />
+		<xsd:attribute name="new-value" type="xsd:string" />
+		<xsd:attribute name="attr-name" type="xsd:string" />
+		<xsd:attribute name="attr-change" type="xsd:string" />
+		<xsd:anyAttribute namespace="##other" processContents="lax" />
+	</xsd:complexType>
+
+	<!--
+
+	 -->
+	<xsd:complexType name="resources.type">
+		<xsd:choice minOccurs="0" maxOccurs="unbounded">
+			<xsd:element name="style" type="xbl:style.type" />
+			<xsd:element name="prefetch" type="xbl:prefetch.type" />
+			<xsd:any namespace="##other" processContents="lax" />
+		</xsd:choice>
+		<xsd:attribute name="id" type="xsd:ID" />
+		<xsd:anyAttribute namespace="##other" processContents="lax" />
+	</xsd:complexType>
+
+	<xsd:complexType name="resource.type">
+		<xsd:attribute name="id" type="xsd:ID" />
+		<xsd:attribute name="src" type="xsd:anyURI" />
+		<xsd:anyAttribute namespace="##other" processContents="lax" />
+	</xsd:complexType>
+
+	<xsd:complexType name="implementation.type" mixed="true">
+		<xsd:complexContent>
+			<xsd:extension base="xbl:resource.type" />
+		</xsd:complexContent>
+	</xsd:complexType>
+
+	<xsd:complexType name="script.type" mixed="true">
+		<xsd:complexContent>
+			<xsd:extension base="xbl:resource.type" />
+		</xsd:complexContent>
+	</xsd:complexType>
+
+	<xsd:complexType name="style.type" mixed="true">
+		<xsd:complexContent>
+			<xsd:extension base="xbl:resource.type">
+				<xsd:attribute name="media" />
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+
+	<xsd:complexType name="prefetch.type" mixed="true">
+		<xsd:complexContent>
+			<xsd:extension base="xbl:resource.type" />
+		</xsd:complexContent>
+	</xsd:complexType>
+
+	<!--
+
+	 -->
+	<xsd:complexType name="shadow.type" mixed="true">
+		<xsd:choice minOccurs="0" maxOccurs="unbounded">
+			<xsd:element ref="xbl:content" />
+			<xsd:element ref="xbl:inherited" />
+			<xsd:element name="div" type="xbl:div.type" />
+			<xsd:any namespace="##other" processContents="lax" />
+		</xsd:choice>
+		<xsd:attribute name="id" type="xsd:ID" />
+		<xsd:anyAttribute namespace="##other" processContents="lax" />
+	</xsd:complexType>
+
+	<xsd:complexType name="template.type">
+		<xsd:complexContent>
+			<xsd:extension base="xbl:shadow.type">
+				<xsd:attribute name="apply-author-sheets" type="xsd:boolean" default="false" />
+				<xsd:attribute name="allow-selectors-through" type="xsd:boolean" default="false" />
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+
+	<xsd:complexType name="content.type">
+		<xsd:complexContent>
+			<xsd:extension base="xbl:shadow.type">
+				<xsd:attribute name="includes" type="xbl:selector.type" />
+				<xsd:attribute name="apply-binding-sheets" type="xsd:boolean" default="false" />
+				<xsd:attribute name="locked" type="xsd:boolean" default="false" />
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+
+	<xsd:complexType name="inherited.type">
+		<xsd:complexContent>
+			<xsd:extension base="xbl:shadow.type" />
+		</xsd:complexContent>
+	</xsd:complexType>
+
+	<xsd:complexType name="div.type">
+		<xsd:complexContent>
+			<xsd:extension base="xbl:shadow.type">
+				<xsd:attribute name="class" type="xsd:NMTOKENS" />
+				<xsd:attribute name="state" type="xsd:string" />
+				<xsd:attribute name="title" type="xsd:string" />
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+
+
+	<!--
+		XBL2 Language Profile
+	 -->
+
+	<!--
+		Elements
+	 -->
+	<xsd:element name="xbl" type="xbl:xbl.type" />
+	<xsd:element name="content" type="xbl:content.type" />
+	<xsd:element name="inherited" type="xbl:inherited.type" />
+
+	<!--
+		Attributes
+	 -->
+	<xsd:attribute name="attr" type="xbl:attr.type" />
+	<xsd:attribute name="pseudo" type="xbl:pseudo.type" />
+
+</xsd:schema>

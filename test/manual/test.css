@@ -1,0 +1,30 @@
+html {
+	border: 0;
+	font-family: Arial;
+}
+
+body {
+	margin: 3px 8px;
+}
+
+body, input, button {
+	font-size: smaller;
+}
+h1 {
+	margin: 0.7em 0;
+	font-size: x-large;
+}
+h2 {
+	border-bottom: double 3px green;
+	margin: 0.5em 0;
+	color: green;
+	font-size: large;
+}
+h3 {
+	margin: 0.3em 0;
+	color: gray;
+	font-size: medium;
+}
+p.abstract {
+	font-style: italic;
+}

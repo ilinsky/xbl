@@ -1,0 +1,3 @@
+RewriteEngine on
+RewriteRule ^xbl.js build/xbl.php
+RewriteRule ^ie-dom.js build/ie-dom.php

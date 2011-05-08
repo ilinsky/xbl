@@ -1,0 +1,94 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+	<head>
+		<title>Example: TabBox</title>
+		<!-- XBL -->
+		<script src="../../xbl.js" type="text/javascript"></script>
+		<!-- CSS -->
+		<style type="text/css">
+			/* Page style */
+			body {
+				font-family: Verdana;
+			}
+			/* Bind implementation */
+			div.tabbox {
+				binding: url("tabbox.xml#tabbox");
+			}
+			div.tab {
+				binding: url("tabbox.xml#tab");
+				margin-right: 0.2em;
+				float: left;
+			}
+			div.tabpanel {
+				binding: url("tabbox.xml#tabpanel");
+				display: none;
+				clear: both;
+				height: 10em;
+			}
+			div.tabpanel.selected {
+				display: block;
+			}
+		</style>
+	</head>
+	<body>
+		<h3>Example: TabBox</h3>
+		<h5>Binding "look &amp; feel"</h5>
+		<p>
+			<br />
+		</p>
+		<div class="tabbox">
+			<div>
+				<div class="tab selected">XBL 2.0</div>
+				<div class="tab">coding</div>
+				<div class="tab">example</div>
+			</div>
+			<div>
+				<div class="tabpanel selected">
+					<div class="tabbox">
+						<div>
+							<div class="tab">XBL 2.0</div>
+							<div class="tab selected">coding</div>
+							<div class="tab">example</div>
+						</div>
+						<div>
+							<div class="tabpanel">Content 1</div>
+							<div class="tabpanel selected">
+								<div class="tabbox">
+									<div>
+										<div class="tab">XBL 2.0</div>
+										<div class="tab">coding</div>
+										<div class="tab selected">example</div>
+									</div>
+									<div>
+										<div class="tabpanel">Content 1</div>
+										<div class="tabpanel">Content 2</div>
+										<div class="tabpanel selected">Content 3</div>
+									</div>
+								</div>
+							</div>
+							<div class="tabpanel">Content 3</div>
+						</div>
+					</div>
+				</div>
+				<div class="tabpanel">Content 2</div>
+				<div class="tabpanel">Content 3</div>
+			</div>
+		</div>
+		<p>
+			<br /><br /><br /><br />
+		</p>
+		<h5>Binding "scriptable interface"</h5>
+		<p>
+			select
+				<button onclick="document.querySelector('.tabbox').goTo(0)">1st tab</button>
+				<button onclick="document.querySelector('.tabbox').goTo(1)">2nd tab</button>
+				<button onclick="document.querySelector('.tabbox').goTo(2)">3rd tab</button>
+			on outer tabbox (calling "goTo" method)
+		</p>
+		<p>
+			retrieve
+				<button onclick="alert(document.querySelector('.tabbox').selectedIndex)">selected index</button>
+			on outer tabbox (getting "selectedIndex" property)
+		</p>
+	</body>
+</html>

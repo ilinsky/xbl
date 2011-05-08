@@ -1,0 +1,62 @@
+<?xml version="1.0"?>
+<xbl:xbl
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:xbl="http://www.w3.org/ns/xbl">
+
+	<xbl:binding id="base">
+		<xbl:template>
+			<div style="border: solid 1px red; margin: 2px;">
+				<xbl:content />
+			</div>
+		</xbl:template>
+	</xbl:binding>
+
+	<xbl:binding id="inherited" extends="#base">
+		<xbl:template>
+			<div style="border: solid 1px pink; margin: 2px;">
+				<xbl:inherited>
+					<div style="border: solid 1px brown; margin: 2px;">
+						<xbl:content />
+					</div>
+				</xbl:inherited>
+			</div>
+		</xbl:template>
+	</xbl:binding>
+
+	<xbl:binding id="re-arrange">
+		<xbl:template>
+			<div style="border: solid 1px red; margin: 2px;">
+				<div style="border: solid 1px green; margin: 2px;">
+					<xbl:content includes=".second" />
+				</div>
+				<div style="border: solid 1px blue; margin: 2px;">
+					<xbl:content includes=".first" />
+				</div>
+			</div>
+		</xbl:template>
+	</xbl:binding>
+
+	<xbl:binding id="xml-space">
+		<xbl:template>
+			<pre>
+				some <b>bold</b> text and  space
+			</pre>
+		</xbl:template>
+	</xbl:binding>
+
+	<xbl:binding id="xml-space-preserve">
+		<xbl:template xml:space="preserve">
+			<pre>
+				some <b>bold</b> text and  space
+			</pre>
+		</xbl:template>
+	</xbl:binding>
+
+	<xbl:binding id="xml-space-default">
+		<xbl:template xml:space="default">
+			<pre>
+				some <b>bold</b> text and  space
+			</pre>
+		</xbl:template>
+	</xbl:binding>
+</xbl:xbl>

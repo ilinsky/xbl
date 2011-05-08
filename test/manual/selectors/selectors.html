@@ -1,0 +1,224 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US">
+	<head>
+		<title>CSS Selectors</title>
+		<!-- Tests CSS -->
+		<link href="../test.css" rel="stylesheet" type="text/css" />
+		<!-- XBL Implementation -->
+		<script src="../../../xbl.js" type="text/javascript"></script>
+		<!-- Page styles -->
+		<style type="text/css">
+			span {
+				display: block;
+			}
+			div, span {
+				border: solid 1px #e0e0e0;
+				margin: 2px;
+			}
+		</style>
+	</head>
+	<body>
+		<h1>Selectors Tests</h1>
+		<p class="abstract">
+			These tests demonstrate CSS Selectors support.
+		</p>
+
+		<h2>CSS 1.0 Selectors</h2>
+		<style type="text/css">
+			#any *,
+			#element div,
+			#descendant div span,
+			#attribute span[lang],
+			#class .structure,
+			#id span#myid,
+			#attribute-space div[class~="warning"],
+			#attribute-hyphen span[lang|="en"],
+			#lang span:lang(ru) {
+				binding: url("selectors.xml#match");
+			}
+		</style>
+
+		<h3>* (any element)</h3>
+		<p>
+			Sample query: <b>*</b>
+		</p>
+		<blockquote id="any">
+			<div class="structure">
+				div class="structure"
+				<span lang="en-US">span lang="en-US"</span>
+				<span lang="nl-NL">span lang="nl-NL"</span>
+				<span lang="ru-RU">span lang="ru-RU"</span>
+			</div>
+		</blockquote>
+
+		<h3>E (any E element)</h3>
+		<p>
+			Sample query: <b>div</b>
+		</p>
+		<blockquote id="element">
+			<div class="structure">
+				div class="structure"
+				<span lang="en-US">span lang="en-US"</span>
+				<span lang="nl-NL">span lang="nl-NL"</span>
+				<span lang="ru-RU">span lang="ru-RU"</span>
+			</div>
+		</blockquote>
+
+		<h3>E F (any F element that is a descendant of an E element)</h3>
+		<p>
+			Sample query: <b>div span</b>
+		</p>
+		<blockquote id="descendant">
+			<div class="structure">
+				div class="structure"
+				<span lang="en-US">span lang="en-US"</span>
+				<span lang="nl-NL">span lang="nl-NL"</span>
+				<span lang="ru-RU">span lang="ru-RU"</span>
+			</div>
+		</blockquote>
+
+		<h3>E[foo] (any E element with the "foo" attribute set)</h3>
+		<p>
+			Sample query: <b>span[lang]</b>
+		</p>
+		<blockquote id="attribute">
+			<div class="structure">
+				div class="structure"
+				<span lang="en-US">span lang="en-US"</span>
+				<span lang="nl-NL">span lang="nl-NL"</span>
+				<span lang="ru-RU">span lang="ru-RU"</span>
+			</div>
+		</blockquote>
+
+		<h3>DIV.warning (the same as DIV[class~="warning"])</h3>
+		<p>
+			Sample query: <b>.structure</b>
+		</p>
+		<blockquote id="class">
+			<div class="structure">
+				div class="structure"
+				<span lang="en-US">span lang="en-US"</span>
+				<span lang="nl-NL">span lang="nl-NL"</span>
+				<span lang="ru-RU">span lang="ru-RU"</span>
+			</div>
+		</blockquote>
+
+		<h3>E#myid (any E element with ID equal to "myid")</h3>
+		<p>
+			Sample query: <b>span#myid</b>
+		</p>
+		<blockquote id="id">
+			<div class="structure">
+				div class="structure"
+				<span lang="en-US">span lang="en-US"</span>
+				<span lang="nl-NL" id="myid">span lang="nl-NL" id="myid"</span>
+				<span lang="ru-RU">span lang="ru-RU"</span>
+			</div>
+		</blockquote>
+
+		<h2>CSS 2.1 Selectors</h2>
+		<style type="text/css">
+			#precedence span+span,
+			#direct-child div>span,
+			#first-child span:first-child,
+			#attribute-value span[lang="nl-NL"] {
+				binding: url("selectors.xml#match");
+			}
+		</style>
+
+		<h3>E + F (any F element immediately preceded by a sibling element E)</h3>
+		<p>
+			Sample query: <b>span+span</b>
+		</p>
+		<blockquote id="precedence">
+			<div class="structure">
+				div class="structure"
+				<span lang="en-US">span lang="en-US"</span>
+				<span lang="nl-NL">span lang="nl-NL"</span>
+				<span lang="ru-RU">span lang="ru-RU"</span>
+			</div>
+		</blockquote>
+
+		<h3>E &gt; F (any F element that is a child of an element E)</h3>
+		<p>
+			Sample query: <b>div&gt;span</b>
+		</p>
+		<blockquote id="direct-child">
+			<div class="structure">
+				div class="structure"
+				<span lang="en-US">span lang="en-US"</span>
+				<span lang="nl-NL">span lang="nl-NL"</span>
+				<span lang="ru-RU">span lang="ru-RU"</span>
+			</div>
+		</blockquote>
+
+		<h3>E[foo="warning"] (any E element whose "foo" attribute value is exactly equal to "warning")</h3>
+		<p>
+			Sample query: <b>span[lang="nl-NL"]</b>
+		</p>
+		<blockquote id="attribute-value">
+			<div class="structure">
+				div class="structure"
+				<span lang="en-US">span lang="en-US"</span>
+				<span lang="nl-NL">span lang="nl-NL"</span>
+				<span lang="ru-RU">span lang="ru-RU"</span>
+			</div>
+		</blockquote>
+
+		<h3>E[foo~="warning"] (any E element whose "foo" attribute value is a list of space-separated values, one of which is exactly equal to "warning")</h3>
+		<p>
+			Sample query: <b>div[class~="warning"]</b>
+		</p>
+		<blockquote id="attribute-space">
+			<div class="structure">
+				div class="structure"
+				<span lang="en-US">span lang="en-US"</span>
+				<span lang="nl-NL">span lang="nl-NL"</span>
+				<span lang="ru-RU">span lang="ru-RU"</span>
+			</div>
+			<div class="structure warning">
+				div class="structure warning"
+			</div>
+		</blockquote>
+
+		<h3>E[lang|="en"] (any E element whose "lang" attribute has a hyphen-separated list of values beginning (from the left) with "en")</h3>
+		<p>
+			Sample query: <b>span[lang|="en"]</b>
+		</p>
+		<blockquote id="attribute-hyphen">
+			<div class="structure">
+				div class="structure"
+				<span lang="en-US">span lang="en-US"</span>
+				<span lang="nl-NL">span lang="nl-NL"</span>
+				<span lang="ru-RU">span lang="ru-RU"</span>
+			</div>
+		</blockquote>
+
+		<h3>E:first-child (element E when E is the first child of its parent)</h3>
+		<p>
+			Sample query: <b>span:first-child</b>
+		</p>
+		<blockquote id="first-child">
+			<div class="structure">
+				div class="structure"
+				<span lang="en-US">span lang="en-US"</span>
+				<span lang="nl-NL">span lang="nl-NL"</span>
+				<span lang="ru-RU">span lang="ru-RU"</span>
+			</div>
+		</blockquote>
+
+		<h3>E:lang(c) (element of type E if it is in (human) language c)</h3>
+		<p>
+			Sample query: <b>span:lang(ru)</b>
+		</p>
+		<blockquote id="lang">
+			<div class="structure">
+				div class="structure"
+				<span lang="en-US">span lang="en-US"</span>
+				<span lang="nl-NL">span lang="nl-NL"</span>
+				<span lang="ru-RU">span lang="ru-RU"</span>
+			</div>
+		</blockquote>
+
+	</body>
+</html>

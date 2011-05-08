@@ -1,0 +1,31 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<title>Implementation</title>
+		<!-- Tests CSS -->
+		<link href="../../test.css" rel="stylesheet" type="text/css" />
+		<!-- XBL Implementation -->
+		<script src="../../../../xbl.js" type="text/javascript"></script>
+		<!-- Page Bindings -->
+		<style type="text/css">
+			.base {			binding: url("implementation.xml#base");			}
+			.intermidiate {	binding: url("implementation.xml#intermidiate");	}
+			.inherited {	binding: url("implementation.xml#inherited");		}
+		</style>
+	</head>
+	<body>
+		<h1>xbl:implementation Tests</h1>
+		<p class="abstract">
+			These tests demonstrate <b>xbl:implementation</b> tag.
+		</p>
+
+		<h2>Members inheritance</h2>
+
+		<h3>#base</h3>
+		<button class="base">click to invoke own method</button>
+
+		<h3>#intermidiate <em>extends</em> #base</h3>
+		<button class="intermidiate">click to invoke inherited method</button>
+
+	</body>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<title>Templates</title>
+		<!-- Tests CSS -->
+		<link href="../../test.css" rel="stylesheet" type="text/css" />
+		<!-- XBL Implementation -->
+		<script src="../../../../xbl.js" type="text/javascript"></script>
+		<!-- Page Bindings -->
+		<style type="text/css">
+			.base {			binding: url("template.xml#base");			}
+			.inherited {	binding: url("template.xml#inherited");	}
+			.re-arrange {	binding: url("template.xml#re-arrange");	}
+
+			.xml-space {			binding: url("template.xml#xml-space");			}
+			.xml-space-default {	binding: url("template.xml#xml-space-default");	}
+			.xml-space-preserve {	binding: url("template.xml#xml-space-preserve");	}
+		</style>
+	</head>
+	<body>
+		<h1>xbl:template Tests</h1>
+		<p class="abstract">
+			These tests demonstrate <b>xbl:template</b> (and <b>xbl:content</b>, <b>xbl:inhertied</b>) tag.
+		</p>
+
+		<h2>Content inheritance</h2>
+
+		<h3>#base</h3>
+		<div class="base">red</div>
+
+		<h3>#inherited <em>extends</em> #base</h3>
+		<div class="inherited">pink red brown</div>
+
+		<h2>Content re-arrangement</h2>
+
+		<h3>content should be re-arranged and appear as second, first</h3>
+		<div class="re-arrange">
+			<div class="first">first</div>
+			<div class="second">second</div>
+		</div>
+
+		<h2>Using xml:space attribute on xbl:template</h2>
+		<h3>no xml:space specified</h3>
+		<div class="xml-space" style="border: solid 1px silver"></div>
+
+		<h3>xml:space="preserve"</h3>
+		<div class="xml-space-preserve" style="border: solid 1px silver"></div>
+
+		<h3>xml:space="default"</h3>
+		<div class="xml-space-default" style="border: solid 1px silver"></div>
+	</body>
+</html>

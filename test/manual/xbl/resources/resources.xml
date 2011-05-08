@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<xbl:xbl
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:xbl="http://www.w3.org/ns/xbl">
+
+	<xbl:binding id="base">
+		<xbl:template>
+			<div style="border: solid 1px red; margin: 2px;">
+				<xbl:content />
+			</div>
+		</xbl:template>
+	</xbl:binding>
+
+	<xbl:binding id="intermidiate" extends="#base">
+		<xbl:template>
+			<div style="border: solid 1px pink; margin: 2px;">
+				<xbl:inherited>
+					<div style="border: solid 1px brown; margin: 2px;">
+						<xbl:content />
+					</div>
+				</xbl:inherited>
+			</div>
+		</xbl:template>
+	</xbl:binding>
+
+	<xbl:binding id="inherited" extends="#intermidiate">
+		<xbl:template>
+			<div style="border: solid 1px green; margin: 2px;">
+				<xbl:inherited>
+					<div style="border: solid 1px blue; margin: 2px;">
+						<xbl:content />
+					</div>
+				</xbl:inherited>
+			</div>
+		</xbl:template>
+	</xbl:binding>
+</xbl:xbl>

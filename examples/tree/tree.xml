@@ -1,0 +1,70 @@
+<?xml version="1.0"?>
+<xbl:xbl
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:xbl="http://www.w3.org/ns/xbl">
+
+	<xbl:binding id="tree-item">
+		<xbl:implementation><![CDATA[
+			({
+				hasClass: function(name) {
+					return new RegExp(' ' + name + ' ').test(' ' + this.boundElement.className + ' ');
+				},
+				replaceClass: function(oldname, newname) {
+					var classes = this.boundElement.className.split(/\s/g);
+					var result = [];
+					for (var i = 0; i < classes.length; i++)
+						if (classes[i] != oldname && classes[i] != newname)
+							result.push(classes[i]);
+					result.push(newname);
+					this.boundElement.className = result.join(' ');
+				},
+				addClass: function(name) {
+					this.replaceClass('', name);
+				},
+				removeClass: function(name) {
+					this.replaceClass(name, '');
+				},
+				isLeaf: function() {
+					return !this.boundElement.getElementsByTagName('ul').length;
+				},
+				xblBindingAttached: function() {
+					// check whether last child (for IE6 compat)
+					var node = this.boundElement;
+					while ((node = node.nextSibling) && node.nodeType != 1)
+						;
+					if (!node)
+						this.addClass('last-child');
+					else
+						this.removeClass('last-child');
+
+					// check whether a leaf node
+					if (this.isLeaf())
+						this.removeClass('branch');
+					else
+						this.addClass('branch');
+				}
+			})
+		]]></xbl:implementation>
+		<xbl:handlers>
+			<xbl:handler event="click"><![CDATA[
+				if (event.target == this.boundElement && !this.isLeaf()) {
+					if (this.hasClass('closed'))
+						this.removeClass('closed');
+					else
+						this.addClass('closed');
+				}
+				event.stopPropagation();
+			]]></xbl:handler>
+		</xbl:handlers>
+		<xbl:resources>
+			<xbl:prefetch src="media/tm.gif" />
+			<xbl:prefetch src="media/tn.gif" />
+			<xbl:prefetch src="media/tp.gif" />
+			<xbl:style>
+				:bound-element {
+					color: gray;
+				}
+			</xbl:style>
+		</xbl:resources>
+	</xbl:binding>
+</xbl:xbl>

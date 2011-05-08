@@ -1,0 +1,35 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<title>Resources</title>
+		<!-- Tests CSS -->
+		<link href="../../test.css" rel="stylesheet" type="text/css" />
+		<!-- XBL Implementation -->
+		<script src="../../../../xbl.js" type="text/javascript"></script>
+		<!-- Page Bindings -->
+		<style type="text/css">
+			.base {			binding: url("resources.xml#base");			}
+			.intermidiate {	binding: url("resources.xml#intermidiate");	}
+			.inherited {	binding: url("resources.xml#inherited");	}
+		</style>
+	</head>
+	<body>
+		<h1>xbl:resources Tests</h1>
+		<p class="abstract">
+			These tests demonstrate <b>xbl:resources</b> (and <b>xbl:style</b>, <b>xbl:prefetch</b>) tag.
+		</p>
+
+		<h2>xbl:style tag</h2>
+
+		<h3>inline content</h3>
+		<div class="intermidiate">pink red brown</div>
+
+		<h3>reffered content (with @src)</h3>
+		<div class="base">red</div>
+
+		<h2>xbl:prefetch tag</h2>
+
+		<h3>#inherited <em>extends</em> #intermidiate [<em>extends</em> #base]</h3>
+		<div class="inherited">green pink red brown blue</div>
+	</body>
+</html>

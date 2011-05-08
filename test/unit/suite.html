@@ -1,0 +1,28 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+	<head>
+		<title>JsUnit Test Suite</title>
+		<script type="text/javascript" src="../../../tools/jsunit/app/jsUnitCore.js"></script>
+
+		<script type="text/javascript">
+			var sBaseUri	= document.location.href.replace(/\/[^\/]*$/, '') + '/';
+
+			function sanityCheckSuite() {
+				var result = new top.jsUnitTestSuite();
+				result.addTestPage(sBaseUri + "sanityCheck/sanityCheck.html");
+				return result;
+			}
+
+			function suite() {
+				var newsuite = new top.jsUnitTestSuite();
+				newsuite.addTestSuite(sanityCheckSuite());
+				return newsuite;
+			}
+		</script>
+	</head>
+	<body>
+		<h1>XBL 2.0 test suite</h1>
+
+		<p>This page contains a suite of tests for testing JavaScript XBL 2.0 implementation.</p>
+	</body>
+</html>

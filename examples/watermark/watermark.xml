@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<xbl:xbl
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:xbl="http://www.w3.org/ns/xbl">
+
+	<xbl:binding id="watermark">
+		<xbl:handlers>
+			<xbl:handler event="DOMFocusIn">
+				var oElement	= this.boundElement;
+				if (oElement.value == oElement.defaultValue) {
+					oElement.value	= "";
+					oElement.style.color	= "";
+				}
+			</xbl:handler>
+			<xbl:handler event="DOMFocusOut">
+				var oElement	= this.boundElement;
+				if (oElement.value == "") {
+					oElement.value	= oElement.defaultValue;
+					oElement.style.color	= "gray";
+				}
+			</xbl:handler>
+		</xbl:handlers>
+		<xbl:implementation>
+			({
+				"xblBindingAttached":	function() {
+					var oElement	= this.boundElement;
+					if (oElement.value == oElement.defaultValue)
+						oElement.style.color	= "gray";
+				}
+			})
+		</xbl:implementation>
+	</xbl:binding>
+</xbl:xbl>

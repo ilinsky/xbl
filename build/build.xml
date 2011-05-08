@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	// =================================================================
+	// ANT Build Script for XBL 2.0 project
+	// =================================================================
+-->
+<project name="Project Build Script" default="BUILD_XBL2" basedir=".">
+	<!-- Define properties -->
+	<!-- System -->
+	<property name="executable.php" value="c:\Program Files\PHP\php.exe" />
+	<tstamp>
+		<format property="tstamp.full" pattern="yyyy-MM-dd HH:mm:ss" locale="en" />
+		<format property="tstamp.year" pattern="yyyy" locale="en" />
+	</tstamp>
+
+	<!-- Project-related -->
+	<property name="project.name" value="XBL 2.0" />
+	<property name="project.version" value="0.2" />
+
+	<property name="copyright.year" value="${tstamp.year}" />
+	<property name="copyright.owner" value="Sergey Ilinsky (http://www.ilinsky.com)" />
+
+	<!-- Build-related -->
+	<property name="build.package" value="current" />
+	<property name="build.signature" value="${tstamp.full}" />
+
+	<property name="temp.dir" value="${basedir}/temp/"/>
+	<property name="work.dir" value="${basedir}/work/"/>
+	<property name="source.dir" value="${basedir}/../"/>
+
+	<property name="target.dir" value="${work.dir}/${build.package}/"/>
+	<property name="target.zip" value="${work.dir}/${build.package}.zip"/>
+
+	<!-- Define targets -->
+	<target name="BUILD_XBL2" description="Builds XBL 2.0 project">
+
+		<delete dir="${target.dir}" />
+		<delete file="${target.zip}" />
+
+		<mkdir dir="${target.dir}" />
+
+		<antcall target="BUILD_XBL2_EXECUTABLE_RAW" />
+		<antcall target="BUILD_XBL2_EXECUTABLE_DEVELOPMENT" />
+		<antcall target="BUILD_XBL2_EXECUTABLE_PRODUCTION" />
+		<antcall target="BUILD_XBL2_EXECUTABLE_SOURCE" />
+
+		<antcall target="BUILD_IE-DOM_EXECUTABLE_RAW" />
+		<antcall target="BUILD_IE-DOM_EXECUTABLE_PRODUCTION" />
+		<antcall target="BUILD_IE-DOM_EXECUTABLE_SOURCE" />
+
+		<antcall target="BUILD_XBL2_EXAMPLES" />
+		<antcall target="BUILD_XBL2_DOCUMENTATION" />
+		<antcall target="BUILD_XBL2_LICENSE" />
+
+		<zip destfile="${target.zip}" basedir="${target.dir}" />
+	</target>
+
+	<target name="BUILD_XBL2_EXECUTABLE_RAW">
+		<echo message="Merging into: ${temp.dir}/xbl-raw.js" level="info"/>
+		<concat destfile="${temp.dir}/xbl-raw.js" fixlastline="yes">
+			<filelist dir="${source.dir}/source/utils/" files="
+				uri.js"/>
+			<filelist dir="${source.dir}/source/dom-events/classes/" files="
+				Event.js,
+				UIEvent.js,
+				MouseEvent.js,
+				MouseWheelEvent.js,
+				KeyboardEvent.js,
+				TextEvent.js,
+				MutationEvent.js,
+				CustomEvent.js"/>
+			<filelist dir="${source.dir}/source/dom-selectors/" files="
+				DocumentSelector.js,
+				ElementSelector.js"/>
+			<filelist dir="${source.dir}/source/css-selectors/" files="
+				resolver.js"/>
+			<filelist dir="${source.dir}/source/css-selectors/selectors/" files="
+				attribute.js,
+				pseudo.js,
+				element.js"/>
+			<filelist dir="${source.dir}/source/dom-xbl/classes/" files="
+				XBLImplementation.js,
+				XBLImplementationsList.js"/>
+			<filelist dir="${source.dir}/source/dom-xbl/" files="
+				DocumentXBL.js,
+				ElementXBL.js"/>
+			<filelist dir="${source.dir}/source/xbl/" files="
+				processor.js,
+				router.js"/>
+			<filelist dir="${source.dir}/source/" files="
+				xbl.js"/>
+		</concat>
+	</target>
+
+	<target name="BUILD_XBL2_EXECUTABLE_DEVELOPMENT">
+		<exec executable="${executable.php}" failonerror="true">
+			<arg value="obfuscator/obfuscate.php" />
+			<arg value="${temp.dir}/xbl-raw.js" />
+			<arg value="${target.dir}/xbl-dev.js" />
+			<arg value="--obfuscate" />
+			<arg value="--strip-Source" />
+		</exec>
+	</target>
+
+	<target name="BUILD_XBL2_EXECUTABLE_PRODUCTION">
+		<exec executable="${executable.php}" failonerror="true">
+			<arg value="obfuscator/obfuscate.php" />
+			<arg value="${temp.dir}/xbl-raw.js" />
+			<arg value="${target.dir}/xbl.js" />
+			<arg value="--obfuscate" />
+			<arg value="--strip-Source" />
+			<arg value="--strip-Debug" />
+		</exec>
+	</target>
+
+	<target name="BUILD_XBL2_EXECUTABLE_SOURCE">
+		<exec executable="${executable.php}" failonerror="true">
+			<arg value="obfuscator/obfuscate.php" />
+			<arg value="${temp.dir}/xbl-raw.js" />
+			<arg value="${temp.dir}/xbl-raw-wrapped.js" />
+			<arg value="--strip-Source" />
+		</exec>
+		<concat destfile="${target.dir}/src/xbl.js" fixlastline="yes">
+			<filelist dir="${basedir}/licenses/" files="GNU_General_Public_License_v3.txt" />
+			<filelist dir="${temp.dir}/" files="xbl-raw-wrapped.js" />
+		</concat>
+		<replace file="${target.dir}/src/xbl.js">
+			<replacefilter token="@copyright.year@"		value="${copyright.year}"		/>
+			<replacefilter token="@copyright.owner@"	value="${copyright.owner}"		/>
+			<replacefilter token="@project.name@"		value="${project.name}"			/>
+			<replacefilter token="@project.version@"	value="${project.version}"		/>
+			<replacefilter token="@build.signature@"	value="${build.signature}"		/>
+		</replace>
+		<delete file="${temp.dir}/xbl-raw.js" />
+		<delete file="${temp.dir}/xbl-raw-wrapped.js" />
+	</target>
+
+	<target name="BUILD_IE-DOM_EXECUTABLE_RAW">
+		<echo message="Merging into: ${temp.dir}/ie-dom-raw.js" level="info"/>
+		<concat destfile="${temp.dir}/ie-dom-raw.js" fixlastline="yes">
+			<filelist dir="${source.dir}/source/ie-dom/" files="
+				ie.js"/>
+			<filelist dir="${source.dir}/source/ie-dom/classes/" files="
+				DocumentEvent.js,
+				EventTarget.js"/>
+		</concat>
+	</target>
+
+	<target name="BUILD_IE-DOM_EXECUTABLE_SOURCE">
+		<exec executable="${executable.php}" failonerror="true">
+			<arg value="obfuscator/obfuscate.php" />
+			<arg value="${temp.dir}/ie-dom-raw.js" />
+			<arg value="${temp.dir}/ie-dom-raw-wrapped.js" />
+			<arg value="--strip-Source" />
+		</exec>
+		<concat destfile="${target.dir}/src/ie-dom.js" fixlastline="yes">
+			<filelist dir="${basedir}/licenses/" files="GNU_General_Public_License_v3.txt" />
+			<filelist dir="${temp.dir}/" files="ie-dom-raw-wrapped.js" />
+		</concat>
+		<replace file="${target.dir}/src/ie-dom.js">
+			<replacefilter token="@copyright.year@"		value="${copyright.year}"		/>
+			<replacefilter token="@copyright.owner@"	value="${copyright.owner}"		/>
+			<replacefilter token="@project.name@"		value="DOM IE"					/>
+			<replacefilter token="@project.version@"	value="${project.version}"		/>
+			<replacefilter token="@build.signature@"	value="${build.signature}"		/>
+		</replace>
+		<delete file="${temp.dir}/ie-dom-raw.js" />
+		<delete file="${temp.dir}/ie-dom-raw-wrapped.js" />
+	</target>
+
+	<target name="BUILD_IE-DOM_EXECUTABLE_PRODUCTION">
+		<exec executable="${executable.php}" failonerror="true">
+			<arg value="obfuscator/obfuscate.php" />
+			<arg value="${temp.dir}/ie-dom-raw.js" />
+			<arg value="${target.dir}/ie-dom.js" />
+			<arg value="--obfuscate" />
+			<arg value="--strip-Source" />
+			<arg value="--strip-Debug" />
+		</exec>
+	</target>
+
+	<target name="BUILD_XBL2_EXAMPLES">
+		<copy todir="${target.dir}/examples/">
+			<fileset dir="${source.dir}/examples/">
+				<include name="tabbox/**" />
+				<include name="tree/**" />
+				<include name="watermark/**" />
+			</fileset>
+		</copy>
+	</target>
+
+	<target name="BUILD_XBL2_DOCUMENTATION">
+		<copy todir="${target.dir}/schema/">
+			<fileset dir="${source.dir}/schemas/">
+				<include name="xbl2.xsd" />
+			</fileset>
+		</copy>
+	</target>
+
+	<target name="BUILD_XBL2_LICENSE">
+		<copy file="licenses/COPYING.LESSER" tofile="${target.dir}/COPYING.LESSER" />
+	</target>
+
+</project>

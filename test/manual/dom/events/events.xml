@@ -1,0 +1,143 @@
+<?xml version="1.0"?>
+<xbl xmlns="http://www.w3.org/ns/xbl"
+	xmlns:xbl="http://www.w3.org/ns/xbl">
+
+	<!-- UIEvent -->
+	<binding id="DOMActivate">
+		<handlers>
+			<handler event="DOMActivate" default-action="cancel">
+				this.boundElement.innerHTML	= (new Date + 0) + ': ' + event.type;
+			</handler>
+		</handlers>
+	</binding>
+
+	<binding id="DOMFocusIn-DOMFocusOut">
+		<handlers>
+			<handler event="DOMFocusIn">
+				this.boundElement.style.border	= 'solid 3px green';
+			</handler>
+			<handler event="DOMFocusOut">
+				this.boundElement.style.border	= '';
+			</handler>
+		</handlers>
+	</binding>
+
+	<binding id="focus-blur">
+		<handlers>
+			<handler event="focus">
+				this.boundElement.style.border	= 'solid 3px green';
+			</handler>
+			<handler event="blur">
+				this.boundElement.style.border	= '';
+			</handler>
+		</handlers>
+	</binding>
+
+	<!-- MouseEvent -->
+	<binding id="mouseover-mouseout">
+		<handlers>
+			<handler event="mouseover">
+				this.boundElement.style.backgroundColor	= 'lightblue';
+			</handler>
+			<handler event="mouseout">
+				this.boundElement.style.backgroundColor	= '';
+			</handler>
+		</handlers>
+	</binding>
+
+	<binding id="mouseenter-mouseleave">
+		<handlers>
+			<handler event="mouseenter">
+				this.boundElement.style.borderColor	= 'lightblue';
+			</handler>
+			<handler event="mouseleave">
+				this.boundElement.style.borderColor	= '';
+			</handler>
+		</handlers>
+	</binding>
+
+	<binding id="mousemove">
+		<handlers>
+			<handler event="mousemove">
+				this.boundElement.innerHTML	= (new Date + 0) + ': ' + event.type;
+			</handler>
+		</handlers>
+	</binding>
+
+	<binding id="mousedown-mouseup">
+		<handlers>
+			<handler event="mousedown">
+				this.boundElement.style.backgroundColor	= 'lightgreen';
+			</handler>
+			<handler event="mouseup">
+				this.boundElement.style.backgroundColor	= '';
+			</handler>
+		</handlers>
+	</binding>
+
+	<binding id="click">
+		<handlers>
+			<handler event="click">
+				this.boundElement.innerHTML	= (new Date + 0) + ': ' + event.type;
+			</handler>
+		</handlers>
+	</binding>
+
+	<binding id="dblclick">
+		<handlers>
+			<handler event="dblclick">
+				this.boundElement.innerHTML	= (new Date + 0) + ': ' + event.type;
+			</handler>
+		</handlers>
+	</binding>
+
+	<!-- MouseWheelEvent -->
+	<binding id="mousewheel">
+		<handlers>
+			<handler event="mousewheel">
+				this.boundElement.innerHTML	= (new Date + 0) + ': ' + event.type;
+			</handler>
+		</handlers>
+	</binding>
+
+	<!-- KeyboardEvent -->
+	<binding id="keydown-keyup">
+		<handlers>
+			<handler event="keydown">
+				this.boundElement.style.border	= 'solid 3px green';
+			</handler>
+			<handler event="keyup">
+				this.boundElement.style.border	= '';
+			</handler>
+		</handlers>
+	</binding>
+
+	<!-- TextEvent -->
+	<binding id="textInput">
+		<handlers>
+			<handler event="textInput">
+				this.boundElement.value	= (new Date + 0) + ': ' + event.type;
+			</handler>
+		</handlers>
+	</binding>
+
+	<!-- Event -->
+	<binding id="submit-reset">
+		<handlers>
+			<handler event="submit" default-action="cancel">
+				this.boundElement.style.backgroundColor	= 'red';
+			</handler>
+			<handler event="reset" default-action="cancel">
+				this.boundElement.style.backgroundColor	= 'green';
+			</handler>
+		</handlers>
+	</binding>
+
+	<binding id="change">
+		<handlers>
+			<handler event="change">
+				this.boundElement.value	= (new Date + 0) + ': ' + event.type;
+			</handler>
+		</handlers>
+	</binding>
+</xbl>
