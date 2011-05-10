@@ -197,15 +197,26 @@ cXBLLanguage.elements.xbl.binding = function(oNode, sDocumentUri) {
 cXBLLanguage.elements.xbl.script = function(oNode, sDocumentUri) {
 	var sSrc	= oNode.getAttribute("src"),
 		sScript,
+        aChildNodes = oNode.childNodes,
 		oScript;
 
 	if (sSrc) {
 		sSrc	= fResolveUri(sSrc, fGetXmlBase(oNode, sDocumentUri));
 		sScript	= cXBLLanguage.fetch(sSrc).responseText;
 	}
-	else
-	if (oNode.firstChild)
-		sScript	= oNode.firstChild.nodeValue;
+	else if (aChildNodes.length>0) {
+        if(aChildNodes.length === 1 && aChildNodes[0].nodeType===3){ //only one textNode
+		    sScript	= oNode.firstChild.nodeValue;
+        }
+        else {
+            for(var i=0,iLen=aChildNodes.length;i<iLen;i++){ //here may have other textNode and CDATA node
+                if(aChildNodes[i].nodeType===4){
+                    sScript = oNode.childNodes[1].nodeValue;
+                }
+            }
+        }
+    }
+
 
 	// Create a script and add it to the owner document
 	oScript	= document.createElement("script");
