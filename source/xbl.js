@@ -4,7 +4,7 @@
 
 //
 var rCSSRules		= /\s*([^}]+)\s*{([^}]+)}/g,
-	rCSSBindingUrls	= /binding:\s*url\s*\(['"\s]*([^'"]+)['"\s]*\)/g,
+	rCSSBindingUrls	= /binding\s*:\s*url\s*\(\s*(?:(['"])|[^'"])([^\1]+)\1\s*\)/g,
 	rCSSComments	= /(\/\*.*?\*\/)/g,
 	rCSSNameSpaces	= /@namespace\s+(\w+)?\s*"([^"]+)";?/g;
 
