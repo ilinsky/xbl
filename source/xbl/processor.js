@@ -204,13 +204,13 @@ cXBLLanguage.elements.xbl.script = function(oNode, sDocumentUri) {
 		sSrc	= fResolveUri(sSrc, fGetXmlBase(oNode, sDocumentUri));
 		sScript	= cXBLLanguage.fetch(sSrc).responseText;
 	}
-	else if (aChildNodes.length>0) {
-        if(aChildNodes.length === 1 && aChildNodes[0].nodeType===3){ //only one textNode
+	else if (aChildNodes.length > 0) {
+        if (aChildNodes.length === 1 && aChildNodes[0].nodeType === 3) { //only one textNode
 		    sScript	= oNode.firstChild.nodeValue;
         }
         else {
-            for(var i=0,iLen=aChildNodes.length;i<iLen;i++){ //here may have other textNode and CDATA node
-                if(aChildNodes[i].nodeType===4){
+            for(var i = 0, iLen = aChildNodes.length; i < iLen; i++){ //here may have other textNode and CDATA node
+                if(aChildNodes[i].nodeType === 4){
                     sScript = oNode.childNodes[1].nodeValue;
                 }
             }
