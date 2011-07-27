@@ -54,6 +54,7 @@ cElementXBL.prototype.addBinding	= function(sDocumentUri) {
 		aElements = oShadowContent.getElementsByTagName('*');
 		for (var nElement = 0, nElements = aElements.length; nElement < nElements; nElement++) {
 			oElement	= aElements[nElement];
+			oElement.xblShadow	= true;	// Mark anonymous elements
 			if (sValue = oElement.getAttribute("xbl-attr")) {
 				for (var nAttribute = 0, aAttributes = sValue.split(' '), nAttributes = aAttributes.length; nAttribute < nAttributes; nAttribute++) {
 					aNames	= aAttributes[nAttribute].split('=');
@@ -181,11 +182,30 @@ cElementXBL.prototype.removeBinding	= function(sDocumentUri) {
 
 	// 2) Destroy shadowTree
 	if (oBinding.shadowTree) {
-		// TODO: Restore old DOM structure
+		(function (oElement) {
+			for (var oChild = oElement.nextSibling; oElement; oChild = oElement.nextSibling) {
+				// Recurse
+				if (oElement.firstChild)
+					arguments.callee(oElement.firstChild);
+				//
+				if (oElement.nodeType == 1) {
+					if (oElement.xblShadow)
+						oElement.parentNode.removeChild(oElement);
+					else
+						oBinding.boundElement.appendChild(oElement).xblChild	= false;
+				}
+				oElement	= oChild;
+				if (!oElement)
+					return;
+			}
+		})(oBinding.shadowTree.firstChild);
 
 		// Destroy circular reference
 		delete oBinding.shadowTree;
 	}
+
+	// Remove class
+	this.className	= this.className.replace((this.className ? ' ' : '') + "xbl" + '-' + "bound-element" + '-' + oBinding.constructor.id, '');
 
 	// Unset boundElement
 	delete oBinding.boundElement;
