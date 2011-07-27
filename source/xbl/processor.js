@@ -359,7 +359,7 @@ cXBLLanguage.elements.xbl.binding.template	= function(oNode, cBinding) {
 			sName	=(oNext.localName || oNext.baseName).toLowerCase();
 
 	// Serialize
-	var sHtml	= window.XMLSerializer ? new window.XMLSerializer().serializeToString(oNode) : oNode.xml;
+	var sHtml	= oNode.xml ? oNode.xml : new window.XMLSerializer().serializeToString(oNode);
 
 	// Cut out xbl:template open/close tag
 	sHtml	= sHtml.replace(/^<[\w:]*template[^>]*>\s*/i, '').replace(/\s*<\/[\w:]*template>$/i, '');
