@@ -1,0 +1,35 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<title>Dynamic binding</title>
+		<!-- Tests CSS -->
+		<link href="../../test.css" rel="stylesheet" type="text/css" />
+		<!-- XBL Implementation -->
+		<script src="../../../../xbl.js" type="text/javascript"></script>
+		<!-- Page Bindings -->
+		<style type="text/css">
+			.dynamic1 {			binding: url("dynamic.xml#dynamic1");			}
+			.dynamic2 {			binding: url("dynamic.xml#dynamic2");			}
+		</style>
+	</head>
+	<body>
+		<h1>Dynamic binding Tests</h1>
+		<p class="abstract">
+			These tests demonstrate dynamic binding capabilities.
+		</p>
+
+		<h2>Handlers filters</h2>
+
+		<h3>Initially bound</h3>
+		<div id="dynamic1" class="dynamic1"><b>dynamic1</b></div>
+		<button onclick="alert(ElementXBL.prototype.hasBinding.call(document.getElementById('dynamic1'), 'dynamic.xml#dynamic1'))">has</button> ?
+		<button onclick="ElementXBL.prototype.addBinding.call(document.getElementById('dynamic1'), 'dynamic.xml#dynamic1')">bind</button> -
+		<button onclick="ElementXBL.prototype.removeBinding.call(document.getElementById('dynamic1'), 'dynamic.xml#dynamic1')">unbind</button>
+
+		<h3>Bind dynamically (click bind)</h3>
+		<div id="dynamic2"><b>dynamic2</b></div>
+		<button onclick="alert(ElementXBL.prototype.hasBinding.call(document.getElementById('dynamic2'), 'dynamic.xml#dynamic2'))">has</button> ?
+		<button onclick="ElementXBL.prototype.addBinding.call(document.getElementById('dynamic2'), 'dynamic.xml#dynamic2')">bind</button> -
+		<button onclick="ElementXBL.prototype.removeBinding.call(document.getElementById('dynamic2'), 'dynamic.xml#dynamic2')">unbind</button>
+	</body>
+</html>

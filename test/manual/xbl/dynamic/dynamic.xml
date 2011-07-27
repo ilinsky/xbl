@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<xbl:xbl
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:xbl="http://www.w3.org/ns/xbl">
+
+	<xbl:binding id="dynamic1">
+		<xbl:template>
+			<div style="border: solid 1px red; margin: 2px;">
+				<div>before</div>
+				<div>
+					<xbl:content />
+				</div>
+				<div>after</div>
+			</div>
+		</xbl:template>
+	</xbl:binding>
+
+	<xbl:binding id="dynamic2">
+		<xbl:template>
+			<div style="border: solid 1px green; margin: 2px;">
+				<div>before</div>
+				<div>
+					<xbl:content />
+				</div>
+				<div>after</div>
+			</div>
+		</xbl:template>
+	</xbl:binding>
+
+</xbl:xbl>
