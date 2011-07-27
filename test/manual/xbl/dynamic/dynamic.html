@@ -10,6 +10,7 @@
 		<style type="text/css">
 			.dynamic1 {			binding: url("dynamic.xml#dynamic1");			}
 			.dynamic2 {			binding: url("dynamic.xml#dynamic2");			}
+			.dynamic3 {			binding: url("dynamic.xml#dynamic3");			}
 		</style>
 	</head>
 	<body>
@@ -21,15 +22,26 @@
 		<h2>Handlers filters</h2>
 
 		<h3>Initially bound</h3>
-		<div id="dynamic1" class="dynamic1"><b>dynamic1</b></div>
+		<div>
+			<div id="dynamic1" class="dynamic1"><b>dynamic1</b></div>
+		</div>
 		<button onclick="alert(ElementXBL.prototype.hasBinding.call(document.getElementById('dynamic1'), 'dynamic.xml#dynamic1'))">has</button> ?
 		<button onclick="ElementXBL.prototype.addBinding.call(document.getElementById('dynamic1'), 'dynamic.xml#dynamic1')">bind</button> -
 		<button onclick="ElementXBL.prototype.removeBinding.call(document.getElementById('dynamic1'), 'dynamic.xml#dynamic1')">unbind</button>
 
 		<h3>Bind dynamically (click bind)</h3>
-		<div id="dynamic2"><b>dynamic2</b></div>
+		<div>
+			<div id="dynamic2"><b>dynamic2</b></div>
+		</div>
 		<button onclick="alert(ElementXBL.prototype.hasBinding.call(document.getElementById('dynamic2'), 'dynamic.xml#dynamic2'))">has</button> ?
 		<button onclick="ElementXBL.prototype.addBinding.call(document.getElementById('dynamic2'), 'dynamic.xml#dynamic2')">bind</button> -
 		<button onclick="ElementXBL.prototype.removeBinding.call(document.getElementById('dynamic2'), 'dynamic.xml#dynamic2')">unbind</button>
+
+		<h3>Add element dynamically and refresh</h3>
+		<div id="container3">
+
+		</div>
+		<button onclick="var o = document.getElementById('container3').appendChild(document.createElement('div')); o.className = 'dynamic3'; o.innerHTML = '<b>dynamic3</b>';">create</button>
+		<button onclick="DocumentXBL.prototype.recalcBindings.call(document)">recalc</button>
 	</body>
 </html>

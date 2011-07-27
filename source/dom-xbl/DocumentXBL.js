@@ -47,7 +47,8 @@ cDocumentXBL.prototype.loadBindingDocument	= function(sDocumentUri) {
 // menu == inherited
 
 
-function fDocumentXBL_addBindings(oNode) {
+
+function fDocumentXBL_addBindings() {
 	var nDefer	= cXBLLanguage.defer,
 		nDeferedCurrent	= 0,
 		aDeferedBindings= [];
@@ -71,6 +72,8 @@ function fDocumentXBL_addBindings(oNode) {
 		})
 	}
 };
+
+cDocumentXBL.prototype.recalcBindings	= fDocumentXBL_addBindings;
 
 function fDocumentXBL_removeBindings(oNode) {
 	for (var oBinding, cBinding; oNode; oNode = oNode.nextSibling) {

@@ -27,4 +27,16 @@
 		</xbl:template>
 	</xbl:binding>
 
+	<xbl:binding id="dynamic3">
+		<xbl:template>
+			<div style="border: solid 1px blue; margin: 2px;">
+				<div>before</div>
+				<div>
+					<xbl:content />
+				</div>
+				<div>after</div>
+			</div>
+		</xbl:template>
+	</xbl:binding>
+
 </xbl:xbl>

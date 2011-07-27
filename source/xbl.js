@@ -96,7 +96,7 @@ function fOnWindowLoad() {
 //<-Source
 
 	// Process elements in the document
-	fDocumentXBL_addBindings(document.body);
+	fDocumentXBL_addBindings();
 
 //->Source
 	dXBL	= new Date - dXBL;
