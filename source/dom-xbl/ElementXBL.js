@@ -19,6 +19,14 @@ cElementXBL.prototype.addBinding	= function(sDocumentUri) {
 	//
 	sDocumentUri	= fResolveUri(sDocumentUri, document.location.href);
 
+	// Check if there is already this binding attached
+	if (this.xblImplementations instanceof cXBLImplementationsList)
+		for (var nBinding = 0, oBinding; nBinding < this.xblImplementations.length; nBinding++) {
+			oBinding = this.xblImplementations[nBinding];
+			if (oBinding.constructor.documentURI + '#' + oBinding.constructor.id == sDocumentUri)
+				return;
+		}
+
 	// 0) Get Binding (synchronously)
 	var cBinding	= cXBLLanguage.getBinding(sDocumentUri);
 	if (!cBinding)
