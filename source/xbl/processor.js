@@ -15,7 +15,7 @@ cXBLLanguage.factory	= document.createElement("span");
 cXBLLanguage.fetch	= function(sUri) {
 	// Make request
 	var oXMLHttpRequest	= window.XMLHttpRequest ? new window.XMLHttpRequest : new window.ActiveXObject("Microsoft.XMLHTTP");
-	oXMLHttpRequest.open("GET", sUri + "?" + (new Date + 0), false);
+	oXMLHttpRequest.open("GET", sUri, false);
 	oXMLHttpRequest.send(null);
 	//
 	return oXMLHttpRequest;
