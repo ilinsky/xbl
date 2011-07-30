@@ -7,7 +7,7 @@
 <project name="Project Build Script" default="BUILD_XBL2" basedir=".">
 	<!-- Define properties -->
 	<!-- System -->
-	<property name="executable.php" value="c:\Program Files\PHP\php.exe" />
+	<property name="executable.php" value="/Applications/MAMP/bin/php5.3/bin/php" />
 	<tstamp>
 		<format property="tstamp.full" pattern="yyyy-MM-dd HH:mm:ss" locale="en" />
 		<format property="tstamp.year" pattern="yyyy" locale="en" />
@@ -15,13 +15,13 @@
 
 	<!-- Project-related -->
 	<property name="project.name" value="XBL 2.0" />
-	<property name="project.version" value="0.2" />
+	<property name="project.version" value="0.3" />
 
 	<property name="copyright.year" value="${tstamp.year}" />
 	<property name="copyright.owner" value="Sergey Ilinsky (http://www.ilinsky.com)" />
 
 	<!-- Build-related -->
-	<property name="build.package" value="current" />
+	<property name="build.package" value="xbl-2.0-beta-3" />
 	<property name="build.signature" value="${tstamp.full}" />
 
 	<property name="temp.dir" value="${basedir}/temp/"/>
@@ -136,11 +136,11 @@
 	</target>
 
 	<target name="BUILD_IE-DOM_EXECUTABLE_RAW">
-		<echo message="Merging into: ${temp.dir}/ie-dom-raw.js" level="info"/>
-		<concat destfile="${temp.dir}/ie-dom-raw.js" fixlastline="yes">
-			<filelist dir="${source.dir}/source/ie-dom/" files="
+		<echo message="Merging into: ${temp.dir}/dom-ie-raw.js" level="info"/>
+		<concat destfile="${temp.dir}/dom-ie-raw.js" fixlastline="yes">
+			<filelist dir="${source.dir}/source/dom-ie/" files="
 				ie.js"/>
-			<filelist dir="${source.dir}/source/ie-dom/classes/" files="
+			<filelist dir="${source.dir}/source/dom-ie/classes/" files="
 				DocumentEvent.js,
 				EventTarget.js"/>
 		</concat>
@@ -149,30 +149,30 @@
 	<target name="BUILD_IE-DOM_EXECUTABLE_SOURCE">
 		<exec executable="${executable.php}" failonerror="true">
 			<arg value="obfuscator/obfuscate.php" />
-			<arg value="${temp.dir}/ie-dom-raw.js" />
-			<arg value="${temp.dir}/ie-dom-raw-wrapped.js" />
+			<arg value="${temp.dir}/dom-ie-raw.js" />
+			<arg value="${temp.dir}/dom-ie-raw-wrapped.js" />
 			<arg value="--strip-Source" />
 		</exec>
-		<concat destfile="${target.dir}/src/ie-dom.js" fixlastline="yes">
+		<concat destfile="${target.dir}/src/dom-ie.js" fixlastline="yes">
 			<filelist dir="${basedir}/licenses/" files="GNU_General_Public_License_v3.txt" />
-			<filelist dir="${temp.dir}/" files="ie-dom-raw-wrapped.js" />
+			<filelist dir="${temp.dir}/" files="dom-ie-raw-wrapped.js" />
 		</concat>
-		<replace file="${target.dir}/src/ie-dom.js">
+		<replace file="${target.dir}/src/dom-ie.js">
 			<replacefilter token="@copyright.year@"		value="${copyright.year}"		/>
 			<replacefilter token="@copyright.owner@"	value="${copyright.owner}"		/>
 			<replacefilter token="@project.name@"		value="DOM IE"					/>
 			<replacefilter token="@project.version@"	value="${project.version}"		/>
 			<replacefilter token="@build.signature@"	value="${build.signature}"		/>
 		</replace>
-		<delete file="${temp.dir}/ie-dom-raw.js" />
-		<delete file="${temp.dir}/ie-dom-raw-wrapped.js" />
+		<delete file="${temp.dir}/dom-ie-raw.js" />
+		<delete file="${temp.dir}/dom-ie-raw-wrapped.js" />
 	</target>
 
 	<target name="BUILD_IE-DOM_EXECUTABLE_PRODUCTION">
 		<exec executable="${executable.php}" failonerror="true">
 			<arg value="obfuscator/obfuscate.php" />
-			<arg value="${temp.dir}/ie-dom-raw.js" />
-			<arg value="${target.dir}/ie-dom.js" />
+			<arg value="${temp.dir}/dom-ie-raw.js" />
+			<arg value="${target.dir}/dom-ie.js" />
 			<arg value="--obfuscate" />
 			<arg value="--strip-Source" />
 			<arg value="--strip-Debug" />
