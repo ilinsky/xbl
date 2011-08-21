@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<xbl xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:xbl="http://www.w3.org/ns/xbl">
+
+	<xbl:binding id="binding1">
+		<xbl:resources>
+			<xbl:style>
+				#id1 {
+					background-color: pink;
+				}
+				.class1 {
+					border: solid 1px red;
+				}
+			</xbl:style>
+		</xbl:resources>
+		<xbl:template>
+			<div class="class1" id="id1">
+				<xbl:content />
+			</div>
+		</xbl:template>
+	</xbl:binding>
+
+	<xbl:binding id="binding2">
+		<xbl:resources>
+			<xbl:style>
+				#id2 {
+					background-color: lightblue;
+				}
+				.class2 {
+					border: solid 1px blue;
+				}
+			</xbl:style>
+		</xbl:resources>
+		<xbl:template>
+			<div class="class2" id="id2">
+				<xbl:content />
+			</div>
+		</xbl:template>
+	</xbl:binding>
+
+	<xbl:binding id="binding3">
+		<xbl:template>
+			<div class="class3" id="id3">
+				<xbl:content />
+			</div>
+		</xbl:template>
+	</xbl:binding>
+</xbl>

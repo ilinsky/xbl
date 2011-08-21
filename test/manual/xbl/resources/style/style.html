@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<title>Style</title>
+		<!-- Tests CSS -->
+		<link href="../../../test.css" rel="stylesheet" type="text/css" />
+		<!-- XBL Implementation -->
+		<script src="../../../../../xbl.js" type="text/javascript"></script>
+		<!-- Page Bindings -->
+		<style type="text/css">
+			.binding1 {	binding: url("style.xml#binding1");	}
+			.binding2 {	binding: url("style.xml#binding2");	}
+			.binding3 {	binding: url("style.xml#binding3");	}
+
+			.class1 {
+				color: red;
+			}
+			.class2 {
+				color: blue;
+			}
+			.class3 {
+				color:	green;
+			}
+
+			#id1 {
+				text-decoration: underline;
+			}
+			#id2 {
+				text-decoration: line-through;
+			}
+			#id3 {
+				text-decoration: overline;
+			}
+		</style>
+	</head>
+	<body>
+		<h1>xbl:style Tests</h1>
+		<p>
+			Despite both host document and bindings define styles
+			for the same <em>class1..3</em> class selectors<br /> and <em>id1..3</em> ID selectors,
+			their style properties do not cross boundaries of shadow tree.
+		</p>
+		<h2>DIVs with bindings</h2>
+		<p>
+			Here styles defined in bindings only applied.
+		</p>
+		<div class="binding1">
+			class1 and id1 defined in binding1
+		</div>
+
+		<div class="binding2">
+			class2 and id2 defined in binding2
+		</div>
+
+		<div class="binding3">
+			class3 and id3 defined in binding3
+		</div>
+
+		<h2>DIVs without bindings</h2>
+		<p>
+			Here styles defined in host document only applied.
+		</p>
+		<div class="class1" id="id1">
+			class1 and id1 defined in host document
+		</div>
+		<div class="class2" id="id2">
+			class2 and id2 defined in host document
+		</div>
+		<div class="class3" id="id3">
+			class3 and id3 defined in host document
+		</div>
+	</body>
+</html>
