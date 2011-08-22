@@ -352,6 +352,8 @@ cXBLLanguage.elements.xbl.binding.template	= function(oNode, cBinding) {
 };
 */
 cXBLLanguage.elements.xbl.binding.template	= function(oNode, cBinding) {
+	//
+	var bApplyAuthorSheets	= oNode.getAttribute("apply-author-sheets") == "true";
 
 	// figure out what kind of children is there
 	for (var oNext = oNode.firstChild, sName = ''; oNext; oNext = oNext.nextSibling)
@@ -381,7 +383,7 @@ cXBLLanguage.elements.xbl.binding.template	= function(oNode, cBinding) {
 	sHtml	= sHtml.replace(/\sclass="([^"]+)"/gi, function(sMatch, sClass) {
 		var aReturn	= [];
 		for (var nIndex = 0, aClass = sClass.replace(/^\s+/, '').replace(/\s+$/, '').split(/\s+/), nLength = aClass.length; nIndex < nLength; nIndex++)
-			aReturn[aReturn.length]	= "xbl" + '-' + aClass[nIndex]+ '-' + cBinding.id;
+			aReturn[aReturn.length]	= (bApplyAuthorSheets ? aClass[nIndex] + ' ' : '') + "xbl" + '-' + aClass[nIndex]+ '-' + cBinding.id;
 		return " class" + '="' + aReturn.join(' ') + '"';
 	});
 	//sHtml	= sHtml.replace(/\sclass="([^"]+)"/gi, ' ' + "class" + '="' + "xbl" + '-$1-' + cBinding.id + '"');
