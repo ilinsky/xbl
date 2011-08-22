@@ -378,7 +378,13 @@ cXBLLanguage.elements.xbl.binding.template	= function(oNode, cBinding) {
 
 	// Replace classes for limiting scope
 	// class="{CLASS}"	-> class="xbl-{CLASS}-{BINDING_ID}"
-	sHtml	= sHtml.replace(/\sclass="([^"]+)"/gi, ' ' + "class" + '="' + "xbl" + '-$1-' + cBinding.id + '"');
+	sHtml	= sHtml.replace(/\sclass="([^"]+)"/gi, function(sMatch, sClass) {
+		var aReturn	= [];
+		for (var nIndex = 0, aClass = sClass.replace(/^\s+/, '').replace(/\s+$/, '').split(/\s+/), nLength = aClass.length; nIndex < nLength; nIndex++)
+			aReturn[aReturn.length]	= "xbl" + '-' + aClass[nIndex]+ '-' + cBinding.id;
+		return " class" + '="' + aReturn.join(' ') + '"';
+	});
+	//sHtml	= sHtml.replace(/\sclass="([^"]+)"/gi, ' ' + "class" + '="' + "xbl" + '-$1-' + cBinding.id + '"');
 	// id="{ID}"		-> xbl-id="{ID}"
 	sHtml	= sHtml.replace(/\sid="([^"]+)"/gi, ' ' + "xbl-id" + '="$1"');
 	// {PREFIX}:attr="{VALUE}" -> xbl-attr="{VALUE}"
