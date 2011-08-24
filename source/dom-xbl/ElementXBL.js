@@ -67,10 +67,16 @@ cElementXBL.prototype.addBinding	= function(sDocumentUri) {
 						if (aNames[1].indexOf(':' + "text") >-1)
 							oElement.setAttribute(aNames[0], this.textContent || this.innerText);
 						else
-							oElement.setAttribute(aNames[0], this.getAttribute(aNames[1]));
+						  if (this.hasAttribute(aNames[1]))
+  							oElement.setAttribute(aNames[0], this.getAttribute(aNames[1]));
+  						else
+  						  oElement.removeAttribute(aNames[0]);
 					}
 					else
-						oElement.setAttribute(aNames[0], this.getAttribute(aNames[0]));
+					  if (this.hasAttribute(aNames[0]))
+  						oElement.setAttribute(aNames[0], this.getAttribute(aNames[0]));
+  					else
+  					  oElement.removeAttribute(aNames[0]);
 				}
 			}
 		}
