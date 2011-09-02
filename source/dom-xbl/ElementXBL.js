@@ -56,27 +56,30 @@ cElementXBL.prototype.addBinding	= function(sDocumentUri) {
 			oElement	= aElements[nElement];
 			oElement.xblShadow	= true;	// Mark anonymous elements
 			if (sValue = oElement.getAttribute("xbl-attr")) {
-				for (var nAttribute = 0, aAttributes = sValue.split(' '), nAttributes = aAttributes.length; nAttribute < nAttributes; nAttribute++) {
+				for (var nAttribute = 0, aAttributes = sValue.split(/\s+/g), nAttributes = aAttributes.length, sAttribute; nAttribute < nAttributes; nAttribute++) {
 					aNames	= aAttributes[nAttribute].split('=');
 					if (aNames.length == 2) {
+						sAttribute	= aNames[1];
 						if (aNames[0].indexOf(':' + "text") >-1) {
 							if (!oElement.firstChild)
-								oElement.appendChild(oElement.ownerDocument.createTextNode(this.getAttribute(aNames[1])));
+								oElement.appendChild(oElement.ownerDocument.createTextNode(this.getAttribute(sAttribute)));
 						}
 						else
-						if (aNames[1].indexOf(':' + "text") >-1)
+						if (sAttribute.indexOf(':' + "text") >-1)
 							oElement.setAttribute(aNames[0], this.textContent || this.innerText);
 						else
-						  if (this.hasAttribute(aNames[1]))
-  							oElement.setAttribute(aNames[0], this.getAttribute(aNames[1]));
+						if (this.getAttribute(sAttribute) != null)
+							oElement.setAttribute(aNames[0], this.getAttribute(sAttribute));
   						else
-  						  oElement.removeAttribute(aNames[0]);
+  							oElement.removeAttribute(aNames[0]);
 					}
-					else
-					  if (this.hasAttribute(aNames[0]))
-  						oElement.setAttribute(aNames[0], this.getAttribute(aNames[0]));
-  					else
-  					  oElement.removeAttribute(aNames[0]);
+					else {
+						sAttribute	= aNames[0];
+						if (this.getAttribute(sAttribute) != null)
+							oElement.setAttribute(sAttribute, this.getAttribute(sAttribute));
+	  					else
+	  						oElement.removeAttribute(sAttribute);
+					}
 				}
 			}
 		}
