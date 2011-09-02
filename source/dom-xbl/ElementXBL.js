@@ -58,24 +58,23 @@ cElementXBL.prototype.addBinding	= function(sDocumentUri) {
 			if (sValue = oElement.getAttribute("xbl-attr")) {
 				for (var nAttribute = 0, aAttributes = sValue.split(/\s+/g), nAttributes = aAttributes.length, sAttribute; nAttribute < nAttributes; nAttribute++) {
 					aNames	= aAttributes[nAttribute].split('=');
+					sAttribute	= aNames[0];
 					if (aNames.length == 2) {
-						sAttribute	= aNames[1];
-						if (aNames[0].indexOf(':' + "text") >-1) {
+						if (sAttribute.indexOf(':' + "text") >-1) {
 							if (!oElement.firstChild)
-								oElement.appendChild(oElement.ownerDocument.createTextNode(this.getAttribute(sAttribute)));
+								oElement.appendChild(oElement.ownerDocument.createTextNode(this.getAttribute(aNames[1])));
 						}
 						else
-						if (sAttribute.indexOf(':' + "text") >-1)
-							oElement.setAttribute(aNames[0], this.textContent || this.innerText);
+						if (aNames[1].indexOf(':' + "text") >-1)
+							oElement.setAttribute(sAttribute, this.textContent || this.innerText);
 						else
-						if (this.getAttribute(sAttribute) != null)
-							oElement.setAttribute(aNames[0], this.getAttribute(sAttribute));
+						if (this.hasAttribute(aNames[1]))
+							oElement.setAttribute(sAttribute, this.getAttribute(aNames[1]));
   						else
-  							oElement.removeAttribute(aNames[0]);
+  							oElement.removeAttribute(sAttribute);
 					}
 					else {
-						sAttribute	= aNames[0];
-						if (this.getAttribute(sAttribute) != null)
+						if (this.hasAttribute(sAttribute))
 							oElement.setAttribute(sAttribute, this.getAttribute(sAttribute));
 	  					else
 	  						oElement.removeAttribute(sAttribute);
