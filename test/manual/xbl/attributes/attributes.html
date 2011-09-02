@@ -1,0 +1,56 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<title>Templates</title>
+		<!-- Tests CSS -->
+		<link href="../../test.css" rel="stylesheet" type="text/css" />
+		<!-- XBL Implementation -->
+		<script src="../../../../xbl.js" type="text/javascript"></script>
+		<!-- Page Bindings -->
+		<style type="text/css">
+			.input      {			binding: url("attributes.xml#input");			    }
+			.checkbox   {			binding: url("attributes.xml#checkbox");			}
+			.textnode   {			binding: url("attributes.xml#textnode");	    }
+			.mapped     {			binding: url("attributes.xml#mapped");	      }
+			.checkbox-with-label   {			binding: url("attributes.xml#checkbox-with-label");			}
+		</style>
+	</head>
+	<body>
+		<h1>xbl:attr Tests</h1>
+		<p class="abstract">
+			These tests demonstrate <b>xbl:attr</b> attribute forwarding
+		</p>
+
+		<h2>Basic Attributes</h2>
+		
+		<h3>Input with type=&quot;text&quot;, type=&quot;button&quot;, type=&quot;password&quot;</h3>
+		<div class="input" type="text"></div>
+		<div class="input" type="button"></div>
+		<div class="input" type="password"></div>
+		
+		<br />
+
+		<h3>Checkbox with &quot;checked&quot; unary attribute absent</h3>
+		<div class="checkbox"></div>
+		
+		<h3>Checkbox with &quot;checked&quot; unary attribute present</h3>
+		<div class="checkbox" checked></div>
+		
+		
+		<h2>Advanced Attributes</h2>
+		
+		<h3>xbl:text used to create a text node from an attribute (should see red injected text in the string)</h3>
+    <div class="textnode" label="INJECTED TEXTNODE"></div>
+    
+    <h3>Mapping attribute to a different name (should see coloured green, blue, red items)</h3>
+    <div class="mapped" style_1="color: green;" style_2="color: blue;" style_3="color: red;"></div>
+    
+    
+    <h2>Combination widget using basic and advanced attributes</h2>
+    <h3>Unchecked checkbox with clickable label</h3>
+		<div class="checkbox-with-label" label="Label:"></div>
+		
+		<h3>Checked checkbox with clickable label</h3>
+		<div class="checkbox-with-label" checked label="Another Label:"></div>
+	</body>
+</html>
