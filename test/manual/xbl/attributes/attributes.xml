@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+<xbl:xbl
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:xbl="http://www.w3.org/ns/xbl">
+
+  <xbl:binding id="input">
+		<xbl:template>
+			<div style="border: solid 1px red; margin: 2px;">
+				<input xbl:attr="type" />
+			</div>
+		</xbl:template>
+	</xbl:binding>
+
+	<xbl:binding id="checkbox">
+		<xbl:template>
+			<div style="border: solid 1px red; margin: 2px;">
+				<input type="checkbox" xbl:attr="checked" />
+			</div>
+		</xbl:template>
+	</xbl:binding>
+	
+	<xbl:binding id="textnode">
+		<xbl:template>
+			<div style="border: solid 1px red; margin: 2px;">
+			  <p>Injected text element follows: <span style="color: red;" xbl:attr="xbl:text=label" />. This text comes after it</p>
+			</div>
+		</xbl:template>
+	</xbl:binding>
+	
+	<xbl:binding id="mapped">
+		<xbl:template>
+			<div style="border: solid 1px red; margin: 2px;">
+			  <ul>
+			    <li xbl:attr="style=style_1">Green</li>
+			    <li xbl:attr="style=style_2">Blue</li>
+			    <li xbl:attr="style=style_3">Red</li>
+			  </ul>
+			</div>
+		</xbl:template>
+	</xbl:binding>
+	
+	<xbl:binding id="checkbox-with-label">
+		<xbl:template>
+			<div style="border: solid 1px red; margin: 2px;">
+			  <span xbl:attr="xbl:text=label" onclick="this.nextSibling.click();" style="cursor: default;" />
+				<input type="checkbox" xbl:attr="checked" />
+			</div>
+		</xbl:template>
+	</xbl:binding>
+</xbl:xbl>
