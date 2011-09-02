@@ -44,7 +44,7 @@ cDocumentXBL.prototype.loadBindingDocument	= function(sDocumentUri) {
 
 // Functions
 // strike == content
-// menu == inherited
+// big == inherited
 
 
 

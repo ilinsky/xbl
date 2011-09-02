@@ -291,8 +291,8 @@ cXBLLanguage.elements.xbl.binding.template	= function(oNode, cBinding) {
 		sHtml	= sHtml.replace(/\sxmlns:?\w*="([^"]+)"/gi, '');
 		// Replace 'xbl:content' by 'strike'
 		sHtml	= sHtml.replace(/(<\/?)[\w:]*content/gi, '$1' + "strike");
-		// Replace 'xbl:inherited' by 'menu'
-		sHtml	= sHtml.replace(/(<\/?)[\w:]*inherited/gi, '$1' + "menu");
+		// Replace 'xbl:inherited' by 'big'
+		sHtml	= sHtml.replace(/(<\/?)[\w:]*inherited/gi, '$1' + "big");
 		// Replace 'xbl:div' by 'div'
 		sHtml	= sHtml.replace(/(<\/?)[\w:]*div/gi, '$1' + "div");
 
@@ -368,8 +368,8 @@ cXBLLanguage.elements.xbl.binding.template	= function(oNode, cBinding) {
 
 	// Replace '{PREFIX}:content' by 'strike'
 	sHtml	= sHtml.replace(/(<\/?)[\w:-]*content/gi, '$1' + "strike");
-	// Replace '{PREFIX}:inherited' by 'menu'
-	sHtml	= sHtml.replace(/(<\/?)[\w:-]*inherited/gi, '$1' + "menu");
+	// Replace '{PREFIX}:inherited' by 'big'
+	sHtml	= sHtml.replace(/(<\/?)[\w:-]*inherited/gi, '$1' + "big");
 	// Replace '{PREFIX}:div' by 'div'
 	sHtml	= sHtml.replace(/(<\/?)[\w:-]*div/gi, '$1' + "div");
 

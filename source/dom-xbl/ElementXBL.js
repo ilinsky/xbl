@@ -262,7 +262,7 @@ function fCreateTemplate(cBinding) {
 	oShadowContent = cBinding.template.cloneNode(true);
 
 	//
-	var aInheritedAnchors	= oShadowContent.getElementsByTagName("menu"),
+	var aInheritedAnchors	= oShadowContent.getElementsByTagName("big"),
 		oInheritedAnchor,
 		oInheritedContent;
 
