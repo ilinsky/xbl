@@ -238,8 +238,7 @@ cXBLLanguage.elements.xbl.binding.implementation	= function(oNode, cBinding) {
 		sScript	= cXBLLanguage.fetch(sSrc).responseText;
 	}
 	else
-	if (oNode.firstChild)
-		sScript	= oNode.firstChild.nodeValue;
+		if (oNode.firstChild) sScript = oNode.text || oNode.textContent;
 
 	// Create script
 	if (sScript) {
