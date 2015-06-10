@@ -34,7 +34,7 @@ if (!oImplementation.hasFeature("Events", '2.0')) {
 				break;
 
 			case "HTMLDocument":
-			 	document[sName]	= vProperty;
+				document[sName]	= vProperty;
 				break;
 		};
 	};
