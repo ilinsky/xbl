@@ -4,7 +4,7 @@
 
 //
 var rCSSRules		= /\s*([^}]+)\s*{([^}]+)}/g,
-    rCSSBindingUrls	= /binding\s*:\s*url\s*\(['"\s]*([^'"\s]+)['"\s]*\)/g,
+	rCSSBindingUrls	= /binding\s*:\s*url\s*\(['"\s]*([^'"\s]+)['"\s]*\)/g,
 	rCSSComments	= /(\/\*.*?\*\/)/g,
 	rCSSNameSpaces	= /@namespace\s+(\w+)?\s*"([^"]+)";?/g;
 
@@ -162,59 +162,49 @@ var aElements	= document.getElementsByTagName("script");
 if (aElements[aElements.length - 1].src.match(/\?defer(?:=(\d+))?/))
 	cXBLLanguage.defer	= window.RegExp.$1;
 
-// Patch browser implementations
-var oImplementation	= document.implementation || {};
-if (!oImplementation.hasFeature)
-	oImplementation.hasFeature	= new window.Function;
-
-// Check if implementation supports XBL 2.0 natively and if it does, return (IE 5.5 doesn't support document.implementation)
-if (!oImplementation.hasFeature("XBL", '2.0')) {
-	if (document.createElement("div").addEventListener) {
-		// Webkit
-		if (window.navigator.userAgent.match(/applewebkit/i))
-			(function (){
-				if (document.readyState == "loaded" || document.readyState == "complete")
-					fOnWindowLoad();
-				else
-					window.setTimeout(arguments.callee, 0);
-			})();
-		// Gecko / Opera
-		else
-			window.addEventListener("DOMContentLoaded", fOnWindowLoad, false);
-//		window.addEventListener("load", fOnWindowLoad, false);
-	}
-	else {
-		// Internet Explorer
-		document.write('<' + "script" + ' ' + "id" + '="' + "xbl" + '_' + "implementation" + '" ' + "defer" + ' ' + "src" + '="/' + '/:"></' + "script" + '>');
-		document.getElementById("xbl" + '_' + "implementation").onreadystatechange	= function() {
-			if (this.readyState == "interactive" || this.readyState == "complete")
-				fOnWindowLoad(this.parentNode.removeChild(this));
-		}
-	}
-	// For browsers that do not support tricks coded above
-	if (window.addEventListener)
-		window.addEventListener("load", fOnWindowLoad, true);
+if (document.createElement("div").addEventListener) {
+	// Webkit
+	if (window.navigator.userAgent.match(/applewebkit/i))
+		(function (){
+			if (document.readyState == "loaded" || document.readyState == "complete")
+				fOnWindowLoad();
+			else
+				window.setTimeout(arguments.callee, 0);
+		})();
+	// Gecko / Opera
 	else
-		window.attachEvent("on" + "load", fOnWindowLoad);
-};
+		window.addEventListener("DOMContentLoaded", fOnWindowLoad, false);
+//		window.addEventListener("load", fOnWindowLoad, false);
+}
+else {
+	// Internet Explorer
+	document.write('<' + "script" + ' ' + "id" + '="' + "xbl" + '_' + "implementation" + '" ' + "defer" + ' ' + "src" + '="/' + '/:"></' + "script" + '>');
+	document.getElementById("xbl" + '_' + "implementation").onreadystatechange	= function() {
+		if (this.readyState == "interactive" || this.readyState == "complete")
+			fOnWindowLoad(this.parentNode.removeChild(this));
+	}
+}
 
-if (!oImplementation.hasFeature("XBL", '2.0')) {
-	// Publish XBL interfaces
-	(window.ElementXBL	= cElementXBL).toString		= fObjectToString("ElementXBL");
-	(window.DocumentXBL	= cDocumentXBL).toString	= fObjectToString("DocumentXBL");
-	// Extend objects
-	if (window.HTMLElement)		fAttachInterface(window.HTMLElement.prototype,	cElementXBL.prototype);
-	if (window.HTMLDocument)	fAttachInterface(window.HTMLDocument.prototype,	cDocumentXBL.prototype);
-};
+// For browsers that do not support tricks coded above
+if (window.addEventListener)
+	window.addEventListener("load", fOnWindowLoad, true);
+else
+	window.attachEvent("on" + "load", fOnWindowLoad);
 
-if (!oImplementation.hasFeature("Selectors", '3.0')) {
-	// Publish Selectors API interfaces
-	(window.ElementSelector		= cElementSelector).toString	= fObjectToString("ElementSelector");
-	(window.DocumentSelector	= cDocumentSelector).toString	= fObjectToString("DocumentSelector");
-	// Extend objects
+
+// Publish XBL interfaces
+(window.ElementXBL	= cElementXBL).toString		= fObjectToString("ElementXBL");
+(window.DocumentXBL	= cDocumentXBL).toString	= fObjectToString("DocumentXBL");
+
+// Extend objects
+if (window.HTMLElement)		fAttachInterface(window.HTMLElement.prototype,	cElementXBL.prototype);
+if (window.HTMLDocument)	fAttachInterface(window.HTMLDocument.prototype,	cDocumentXBL.prototype);
+
+// Extend objects
+if (!document.querySelector) {
 	if (window.HTMLElement)		fAttachInterface(window.HTMLElement.prototype,	cElementSelector.prototype);
 	if (window.HTMLDocument)	fAttachInterface(window.HTMLDocument.prototype,	cDocumentSelector.prototype);
-};
+}
 
 //->Source
 //window.cXBLLanguage	= cXBLLanguage;
